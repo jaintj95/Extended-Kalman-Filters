@@ -16,20 +16,24 @@ using json = nlohmann::json;
 // Checks if the SocketIO event has JSON data.
 // If there is data the JSON object in string format will be returned,
 // else the empty string "" will be returned.
-string hasData(string s) {
+string hasData(string s) 
+{
   auto found_null = s.find("null");
   auto b1 = s.find_first_of("[");
   auto b2 = s.find_first_of("]");
-  if (found_null != string::npos) {
+  if (found_null != string::npos) 
+  {
     return "";
   }
-  else if (b1 != string::npos && b2 != string::npos) {
+  else if (b1 != string::npos && b2 != string::npos) 
+  {
     return s.substr(b1, b2 - b1 + 1);
   }
   return "";
 }
 
-int main() {
+int main() 
+{
   uWS::Hub h;
 
   // Create a Kalman Filter instance
@@ -67,7 +71,8 @@ int main() {
           string sensor_type;
           iss >> sensor_type;
 
-          if (sensor_type.compare("L") == 0) {
+          if (sensor_type.compare("L") == 0) 
+          {
             meas_package.sensor_type_ = MeasurementPackage::LASER;
             meas_package.raw_measurements_ = VectorXd(2);
             float px;
@@ -77,7 +82,9 @@ int main() {
             meas_package.raw_measurements_ << px, py;
             iss >> timestamp;
             meas_package.timestamp_ = timestamp;
-          } else if (sensor_type.compare("R") == 0) {
+          } 
+          else if (sensor_type.compare("R") == 0) 
+          {
             meas_package.sensor_type_ = MeasurementPackage::RADAR;
             meas_package.raw_measurements_ = VectorXd(3);
             float ro;
